@@ -8,7 +8,7 @@ module.exports = class Grass extends LiveForm {
         this.multiply = 0;
         matrix[y][x]=1;
         grassArr.push(this);
-        Hashiv["Grass"]++;
+        GrassHashiv++;
         ObjMatrix[y][x]=this;
     }
     chooseCell(character) {

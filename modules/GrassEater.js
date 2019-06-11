@@ -7,8 +7,8 @@ module.exports = class GrassEater extends LiveForm {
     constructor(x, y) {
         super(x, y, 10);
         matrix[y][x]=2;
-        GrassEater.push(this);
-        Hashiv["GrassEater"]++;
+        grassEaterArr.push(this);
+        GrassEaterHashiv++;
         this.CanMul=0;
         ObjMatrix[y][x]=this;
     }
@@ -29,10 +29,9 @@ module.exports = class GrassEater extends LiveForm {
                 new GrassEater(x, y);
                 LovePair.CanMul=0;
                 this.canMul=0;
-                return true;
             }
         }
-        return false;
+        
     }
     eat() {
         let GrassCells = this.chooseCell(1);

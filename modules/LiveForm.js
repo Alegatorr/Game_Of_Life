@@ -43,8 +43,10 @@ module.exports = class LiveForm {
     move(Cell){
         let x=Cell[0];
         let y=Cell[1];
-        ObjMap[y][x].die();
-        ObjMap[this.y][this.x]=null;
+        if (ObjMatrix[y][x]){
+            ObjMatrix[y][x].die();
+        }
+        ObjMatrix[this.y][this.x]=null;
         matrix[y][x]=matrix[this.y][this.x];
         matrix[this.y][this.x]=0;
         this.x=x;
