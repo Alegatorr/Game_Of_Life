@@ -22,6 +22,7 @@ module.exports = class Grass extends LiveForm {
         this.life--;
         if (this.life<0){
             this.die();
+            return;
         }
         this.multiply++;
         let emptyCells = this.chooseCell(0);

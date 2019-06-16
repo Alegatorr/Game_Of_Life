@@ -46,6 +46,7 @@ module.exports = class MeatEater extends LiveForm {
             this.life--;
             if (this.life < 0 || this.Sov>=12) {
                 this.die();
+                return;
             }
             let emptyCells = this.chooseCell(0);
             newCell = random(emptyCells);

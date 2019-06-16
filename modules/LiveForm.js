@@ -47,6 +47,7 @@ module.exports = class LiveForm {
             //if (matrix[y][x]==1)console.log("vay");
             ObjMatrix[y][x].die();
         }
+        ObjMatrix[y][x]=this;
         ObjMatrix[this.y][this.x]=null;
         matrix[y][x]=matrix[this.y][this.x];
         matrix[this.y][this.x]=0;

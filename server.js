@@ -3,6 +3,7 @@ var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
 var MeatEater  = require("./modules/MeatEaters.js");
 var Man  = require("./modules/Amenaker.js");
+var Zombie  = require("./modules/zombie.js");
 let random = require('./modules/random.js');
 let random_shuffle = require('./modules/random_shuffle.js');
 //! Requiring modules  --  END
@@ -13,16 +14,20 @@ grassArr = [];
 grassEaterArr = [];
 meatEaterArr = [];
 manArr = [];
+zombieArr = [];
 matrix = [];
-ObjMatrix= [];
+ObjMatrix = [];
 MeatEaterHashiv=0;
 GrassEaterHashiv=0;
 GrassHashiv=0;
+ZombieHashiv=0;
 ManHashiv=0;
+Exanak=0;
+ExCounter=0;
 //! Setting global arrays  -- END
 
 //! Creating MATRIX -- START
-function matrixGenerator(matrixSize, G, GE, ME, AM) {
+function matrixGenerator(matrixSize, G, GE, ME, AM, ZM) {
     let shuff=[];
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
@@ -62,9 +67,16 @@ function matrixGenerator(matrixSize, G, GE, ME, AM) {
         let customY = shuff[i][1]; 
         new Man(customX,customY);
     }
+    sum+=AM;
+    for (let i = sum; i < sum+ZM; i++) {
+
+        let customX = shuff[i][0];
+        let customY = shuff[i][1]; 
+        new Zombie(customX,customY);
+    }
     console.log(grassArr.length);
 }
-matrixGenerator(5, 5, 5, 5, 5);
+matrixGenerator(20, 30, 60, 10, 60, 10);
 
 
 //! SERVER STUFF  --  START
@@ -76,11 +88,17 @@ app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
-server.listen(3001);
+server.listen(3000);
 //! SERVER STUFF END  --  END
 
 
 function game() {
+    ExCounter++;
+    ExCounter%=12;
+    if (ExCounter<3)Exanak=1;
+    else if (ExCounter<6)Exanak=2;
+    else if (ExCounter<9)Exanak=3;
+    else Exanak=4;
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].update();
@@ -96,12 +114,17 @@ function game() {
             meatEaterArr[i].update();
         }
     }
+    
+    if (zombieArr[0] !== undefined) {
+        for (var i in zombieArr) {
+            zombieArr[i].update();
+        }
+    }
     if (manArr[0] !== undefined) {
         for (var i in manArr) {
             manArr[i].update();
         }
     }
-
 
     //! Object to send
     let sendData = {

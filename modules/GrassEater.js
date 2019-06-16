@@ -47,6 +47,7 @@ module.exports = class GrassEater extends LiveForm {
             this.life--;
             if (this.life < 0 || this.Sov>=10) {
                 this.die();
+                return;
             }
             let emptyCells = this.chooseCell(0);
             newCell = random(emptyCells);
