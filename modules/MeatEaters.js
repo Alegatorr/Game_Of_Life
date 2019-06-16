@@ -10,6 +10,7 @@ module.exports = class MeatEater extends LiveForm {
         meatEaterArr.push(this);
         MeatEaterHashiv++;
         this.CanMul=0;
+        this.Sov=0;
         ObjMatrix[y][x]=this;
     }
     chooseCell(character) {
@@ -18,7 +19,7 @@ module.exports = class MeatEater extends LiveForm {
     } 
     mul() {
         this.canMul++;
-        let OtherMeatEaters=this.chooseCell(2);
+        let OtherMeatEaters=this.chooseCell(3);
         if (OtherMeatEaters && this.CanMul>=6){
             let emptyCells = this.chooseCell(0);
             let newCell = random(emptyCells);
@@ -26,7 +27,7 @@ module.exports = class MeatEater extends LiveForm {
             if (newCell && LovePair) {
                 let x = newCell[0];
                 let y = newCell[1];
-                new GrassEater(x, y);
+                new MeatEater(x, y);
                 LovePair.CanMul=0;
                 this.canMul=0;
             }
@@ -35,22 +36,22 @@ module.exports = class MeatEater extends LiveForm {
     eat() {
         let GrassEaterCells = this.chooseCell(2);
         let newCell = random(GrassEaterCells);
-
-        if (newCell) {
-
+        this.Sov++;
+        if (newCell && this.Sov>=6) {
+            this.Sov-=6;
             this.life++;
             super.move(newCell);
         }
         else {
             this.life--;
-            if (this.life < 0) {
+            if (this.life < 0 || this.Sov>=12) {
                 this.die();
             }
             let emptyCells = this.chooseCell(0);
-            let newCell = random(emptyCells);
+            newCell = random(emptyCells);
 
             if (newCell) {
-                super.move(NewCell);
+                super.move(newCell);
             }
             
         }

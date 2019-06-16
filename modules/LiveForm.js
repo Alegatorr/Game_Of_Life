@@ -36,7 +36,7 @@ module.exports = class LiveForm {
         matrix[this.y][this.x] = 0;
         for (let i in arr) {
             if (arr[i].x == this.x && arr[i].y == this.y) {
-                arr.splice(i, 1)
+                arr.splice(i, 1);
             }
         }
     }
@@ -44,6 +44,7 @@ module.exports = class LiveForm {
         let x=Cell[0];
         let y=Cell[1];
         if (ObjMatrix[y][x]){
+            //if (matrix[y][x]==1)console.log("vay");
             ObjMatrix[y][x].die();
         }
         ObjMatrix[this.y][this.x]=null;
