@@ -20,7 +20,7 @@ module.exports = class Man extends LiveForm {
     mul() {
         this.canMul++;
         let OtherMen=this.chooseCell(4);
-        if (OtherMen && this.CanMul>=6){
+        if (this.CanMul>=6){
             let emptyCells = this.chooseCell(0);
             let newCell = random(emptyCells);
             let LovePair = super.GetObj(random(OtherMen)); 
@@ -31,12 +31,25 @@ module.exports = class Man extends LiveForm {
                 LovePair.CanMul=0;
                 this.canMul=0;
             }
+            else if (Exanak!=1 && newCell){
+                let x = newCell[0];
+                let y = newCell[1];
+                new Man(x, y);
+                this.canMul=0;
+            }
         }
     }
     eat() {
-        let GrassEaterCells = this.chooseCell(2);
-        let MeatEaterCells = this.chooseCell(3);
-        let newCell = random([random(GrassEaterCells),random(MeatEaterCells)]);
+        let newCell;
+        if (Exanak!=2){
+            let GrassEaterCells = this.chooseCell(2);
+            let MeatEaterCells = this.chooseCell(3);
+            newCell = random([random(GrassEaterCells),random(MeatEaterCells)]);
+        }
+        else{
+            let GrassCells = this.chooseCell(1);
+            newCell = random(GrassCells);
+        }
         this.Sov++;
         if (newCell && this.Sov>=8) {
             this.Sov-=5;
@@ -52,7 +65,7 @@ module.exports = class Man extends LiveForm {
             let emptyCells = this.chooseCell(0);
             newCell = random(emptyCells);
 
-            if (newCell) {
+            if (newCell && Exanak!=4) {
                 super.move(newCell);
             }
             

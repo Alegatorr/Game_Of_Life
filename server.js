@@ -17,6 +17,8 @@ manArr = [];
 zombieArr = [];
 matrix = [];
 ObjMatrix = [];
+Eggs=[];
+needToAdd = [];
 MeatEaterHashiv=0;
 GrassEaterHashiv=0;
 GrassHashiv=0;
@@ -38,7 +40,6 @@ function matrixGenerator(matrixSize, G, GE, ME, AM, ZM) {
         }
     }
     random_shuffle(shuff);
-    console.log(grassArr.length);
     let sum=0;
     for (let i = sum; i < sum+G; i++) {
         let customX = shuff[i][0];
@@ -46,7 +47,6 @@ function matrixGenerator(matrixSize, G, GE, ME, AM, ZM) {
         new Grass(customX,customY);
     }
     sum+=G;
-    console.log(grassArr.length);
     for (let i = sum; i < sum+GE; i++) {
 
         let customX = shuff[i][0];
@@ -74,7 +74,6 @@ function matrixGenerator(matrixSize, G, GE, ME, AM, ZM) {
         let customY = shuff[i][1]; 
         new Zombie(customX,customY);
     }
-    console.log(grassArr.length);
 }
 matrixGenerator(20, 30, 60, 10, 60, 10);
 
@@ -91,14 +90,65 @@ app.get('/', function (req, res) {
 server.listen(3000);
 //! SERVER STUFF END  --  END
 
+function addRandomObj(curx,cury){
+    let randomValue=random(5)+1;
+    if (randomValue==1){
+        new Grass(curx,cury);
+    }
+    if (randomValue==2){
+        new GrassEater(curx,cury);
+    }
+    if (randomValue==3){
+        new MeatEater(curx,cury);
+    }
+    if (randomValue==4){
+        new Man(curx,cury);
+    }
+    if (randomValue==5){
+        new Zombie(curx,cury);
+    }
+}
 
+function addHere(curx,cury){
+    //console.log(curx,cury);
+    if (matrix[cury][curx]==0){
+        addRandomObj(curx,cury);
+    }
+    let blankCells=ObjMatrix[cury][curx].chooseCell(0);
+    for (i in blankCells){
+        addRandomObj(blankCells[i][0],blankCells[i][1]);
+    }
+}
+
+function UserClicked(data){
+    let curx=data.x,cury=data.y;
+    needToAdd.push([curx,cury]);  
+}
+io.on("connection",function(socket){
+    socket.on("clicked",UserClicked);
+});
 function game() {
     ExCounter++;
     ExCounter%=12;
+    
     if (ExCounter<3)Exanak=1;
     else if (ExCounter<6)Exanak=2;
     else if (ExCounter<9)Exanak=3;
     else Exanak=4;
+    if (Exanak==1){
+        for (i in Eggs){
+            let curx=Eggs[i][0];
+            let cury=Eggs[i][1];
+            if (matrix[cury][curx]==1){
+                ObjMatrix[cury][curx].die();
+                new GrassEater(curx,cury);
+            }
+            else if (matrix[cury][curx]==0){
+                new GrassEater(curx,cury);
+            }
+        }
+        Eggs=[];
+    }
     if (grassArr[0] !== undefined) {
         for (var i in grassArr) {
             grassArr[i].update();
@@ -125,11 +175,19 @@ function game() {
             manArr[i].update();
         }
     }
-
+    for (i in needToAdd){
+        addHere(needToAdd[i][0],needToAdd[i][1])
+    }
+    needToAdd=[];
     //! Object to send
     let sendData = {
         matrix: matrix,
-        grassCounter: grassArr.length
+        grassCounter: GrassHashiv,
+        grassEaterCounter: GrassEaterHashiv,
+        meatEaterCounter: MeatEaterHashiv,
+        manCounter: ManHashiv,
+        zombieCounter: ZombieHashiv,
+        Exan:Exanak
     }
     //console.log(grassArr);
     //! Send data over the socket to clients who listens "data"

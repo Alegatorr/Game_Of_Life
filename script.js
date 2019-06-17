@@ -1,16 +1,18 @@
 //! Setup function fires automatically
+var socket = io();
+var side = 30;
 function setup() {
 
-    var socket = io();
-
-    var side = 30;
+    
 
     var matrix = [];
 
     //! Getting DOM objects (HTML elements)
     let grassCountElement = document.getElementById('grassCount');
     let grassEaterCountElement = document.getElementById('grassEaterCount');
-
+    let meatEaterCountElement = document.getElementById('meatEaterCount');
+    let manCountElement = document.getElementById('manCount');
+    let zombieCountElement = document.getElementById('zombieCount');
     //! adding socket listener on "data" <-- name, after that fire 'drawCreatures' function 
 
     socket.on("data", drawCreatures);
@@ -19,12 +21,22 @@ function setup() {
         //! after getting data pass it to matrix variable
         matrix = data.matrix;
         grassCountElement.innerText = data.grassCounter;
+        grassEaterCountElement.innerText = data.grassEaterCounter;
+        meatEaterCountElement.innerText = data.meatEaterCounter;
+        manCountElement.innerText = data.manCounter;
+        zombieCountElement.innerText = data.zombieCounter;
+        let curEx=data.Exan;
         //! Every time it creates new Canvas woth new matrix size
         createCanvas(matrix[0].length * side, matrix.length * side)
         //! clearing background by setting it to new grey color
         background('#acacac');
         //! Draw grassCount and grassEaterCount to HTML (use DOM objects to update information, yes, and use .innerText <- function)
-
+        let curExText="";
+        if (curEx==1)curExText="Գարուն";
+        else if (curEx==2)curExText="Ամառ";
+        else if (curEx==3)curExText="Աշուն";
+        else if (curEx==4)curExText="Ձմեռ";
+        document.getElementById("p1").innerHTML = "Եղանակը՝ " + curExText;
         //! Drawing and coloring RECTs
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
@@ -50,4 +62,15 @@ function setup() {
             }
         }
     }
+    
+}
+
+function mousePressed() {
+    console.log(mouseX, mouseY);
+    let curx=Math.floor(mouseX/side),cury=Math.floor(mouseY/side);
+    let Cordinates = {
+        x:curx,
+        y:cury
+    }
+    socket.emit("clicked",Cordinates);
 }

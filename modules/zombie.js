@@ -21,19 +21,21 @@ module.exports = class Zombie extends LiveForm {
             this.die();
             return;
         }
-        let ManCell = random(this.chooseCell(4));
-        if (ManCell) {
-            //console.log(1);
-            super.GetObject(ManCell).die();
-            new Zombie(ManCell[0],ManCell[1]);
-        }
-        else {
+        if (Exanak!=4){
+            let ManCell = random(this.chooseCell(4));
+            if (ManCell && Exanak!=3) {
+                //console.log(1);
+                super.GetObject(ManCell).die();
+                new Zombie(ManCell[0],ManCell[1]);
+            }
+            else if(Exanak!=2){
 
-            let emptyCells = this.chooseCell(0);
-            let newCell = random(emptyCells);
-            if (newCell) {
-                super.move(newCell);
-            } 
+                let emptyCells = this.chooseCell(0);
+                let newCell = random(emptyCells);
+                if (newCell) {
+                    super.move(newCell);
+                } 
+            }
         }
     }
     die() {

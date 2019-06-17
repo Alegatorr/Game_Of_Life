@@ -20,7 +20,7 @@ module.exports = class GrassEater extends LiveForm {
     mul() {
         this.canMul++;
         let OtherGrassEaters=this.chooseCell(2);
-        if (OtherGrassEaters && this.CanMul>=3){
+        if (this.CanMul>=3){
             let emptyCells = this.chooseCell(0);
             let newCell = random(emptyCells);
             let LovePair = super.GetObj(random(OtherGrassEaters)); 
@@ -31,12 +31,19 @@ module.exports = class GrassEater extends LiveForm {
                 LovePair.CanMul=0;
                 this.canMul=0;
             }
+            else if (Exanak!=1 && newCell){
+                let x = newCell[0];
+                let y = newCell[1];
+                new GrassEater(x, y);
+                this.canMul=0;
+            }
         }
         
     }
     eat() {
         let GrassCells = this.chooseCell(1);
         let newCell = random(GrassCells);
+        if (Exanak==4)this.Sov++;
         this.Sov++;
         if (newCell && this.Sov>=5) {
             this.life++;
@@ -63,6 +70,7 @@ module.exports = class GrassEater extends LiveForm {
         this.eat();
     }
     die() {
+        if ((Exanak==2  || Exanak==3) && random(4)==1)Eggs.push([this.x,this.y]);
         super.die(grassEaterArr);
     }
 }

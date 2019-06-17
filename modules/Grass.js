@@ -24,14 +24,27 @@ module.exports = class Grass extends LiveForm {
             this.die();
             return;
         }
-        this.multiply++;
-        let emptyCells = this.chooseCell(0);
-        let newCell = random(emptyCells);
-        if (newCell && this.multiply >= 8) {
-            let x = newCell[0];
-            let y = newCell[1];
-            new Grass(x, y);
-            this.multiply = 0;
+        if (Exanak!=4){
+            this.multiply++;
+            if (Exanak==1 || Exanak==2)this.multiply++;
+            let emptyCells = this.chooseCell(0);
+            let newCell = random(emptyCells);
+            if (newCell && this.multiply >= 8) {
+                let x = newCell[0];
+                let y = newCell[1];
+                new Grass(x, y);
+                this.multiply = 0;
+            }
+            if (Exanak==1){
+                emptyCells = this.chooseCell(0);
+                newCell = random(emptyCells);
+                if (newCell && this.multiply >= 8) {
+                    let x = newCell[0];
+                    let y = newCell[1];
+                    new Grass(x, y);
+                    this.multiply = 0;
+                }
+            }
         }
     }
 }
