@@ -46,6 +46,12 @@
                 <td id="grassCount"></td>
             </tr>
             <tr>
+                <th scope="row">1.5</th>
+                <td scope="row" style="background-color:white;"></td>
+                <td>Սպիտակը ձմեռային խոտն է</td>
+                <td id="grassCount"></td>
+            </tr>
+            <tr>
                 <th scope="row">2</th>
                 <td scope="row" style="background-color:orange;"></td>
                 <td>Դեղինը խոտակերն է</td>
@@ -72,6 +78,10 @@
         </tbody>
     </table>
     <p id="p1"></p>
+    <input id="Button1" type="button" value="Գարուն" onclick="ChangeWeather(1);" />
+    <input id="Button2" type="button" value="Ամառ" onclick="ChangeWeather(2);" />
+    <input id="Button3" type="button" value="Աշուն" onclick="ChangeWeather(3);" />
+    <input id="Button4" type="button" value="Ձմեռ" onclick="ChangeWeather(4);" />
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>

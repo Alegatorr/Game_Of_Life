@@ -24,7 +24,9 @@ GrassEaterHashiv=0;
 GrassHashiv=0;
 ZombieHashiv=0;
 ManHashiv=0;
+change=-1;
 Exanak=0;
+SIZE=20;
 ExCounter=0;
 //! Setting global arrays  -- END
 
@@ -75,7 +77,7 @@ function matrixGenerator(matrixSize, G, GE, ME, AM, ZM) {
         new Zombie(customX,customY);
     }
 }
-matrixGenerator(20, 30, 60, 10, 60, 10);
+matrixGenerator(SIZE, 30, 60, 10, 60, 10);
 
 
 //! SERVER STUFF  --  START
@@ -95,22 +97,23 @@ function addRandomObj(curx,cury){
     if (randomValue==1){
         new Grass(curx,cury);
     }
-    if (randomValue==2){
+    else if (randomValue==2){
         new GrassEater(curx,cury);
     }
-    if (randomValue==3){
+    else if (randomValue==3){
         new MeatEater(curx,cury);
     }
-    if (randomValue==4){
+    else if (randomValue==4){
         new Man(curx,cury);
     }
-    if (randomValue==5){
+    else{
         new Zombie(curx,cury);
     }
 }
 
 function addHere(curx,cury){
     //console.log(curx,cury);
+    if (cury<0 || curx<0 || curx>=SIZE || cury>=SIZE)return;
     if (matrix[cury][curx]==0){
         addRandomObj(curx,cury);
     }
@@ -120,17 +123,24 @@ function addHere(curx,cury){
     }
 }
 
+function WeatherChange(data){
+    if (data>=1 && data<=4)change=data;
+}
 function UserClicked(data){
     let curx=data.x,cury=data.y;
     needToAdd.push([curx,cury]);  
 }
 io.on("connection",function(socket){
     socket.on("clicked",UserClicked);
+    socket.on("weather",WeatherChange);
 });
 function game() {
     ExCounter++;
     ExCounter%=12;
-    
+    if (change!=-1){
+        ExCounter=3*(change-1);
+        change=-1;
+    }
     if (ExCounter<3)Exanak=1;
     else if (ExCounter<6)Exanak=2;
     else if (ExCounter<9)Exanak=3;

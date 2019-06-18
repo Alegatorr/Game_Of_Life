@@ -40,10 +40,13 @@ function setup() {
         //! Drawing and coloring RECTs
         for (var i = 0; i < matrix.length; i++) {
             for (var j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] == 1) {
+                if (matrix[i][j] == 1 && curExText=="Ձմեռ") {
+                    fill("white");
+                    rect(j * side, i * side, side, side);
+                }else if(matrix[i][j]==1){
                     fill("green");
                     rect(j * side, i * side, side, side);
-                } else if (matrix[i][j] == 2) {
+                }else if (matrix[i][j] == 2) {
                     fill("orange");
                     rect(j * side, i * side, side, side);
                 } else if (matrix[i][j] == 0) {
@@ -73,4 +76,8 @@ function mousePressed() {
         y:cury
     }
     socket.emit("clicked",Cordinates);
+}
+
+function ChangeWeather(Exanak){
+    socket.emit("weather",Exanak);
 }
