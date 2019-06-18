@@ -42,7 +42,7 @@
             <tr>
                 <th scope="row">1</th>
                 <td scope="row" style="background-color:green;"></td>
-                <td>Կանաչը խոտն է</td>
+                <td>Կանաչը խոտն է, Ձմռանը չի բազմանում, գարնանը և ամռանը ավելի հաճախ է բազմանում, գարնանը բազմանալուց ավելանում է նոր խոտ</td>
                 <td id="grassCount"></td>
             </tr>
             <tr>
@@ -54,34 +54,37 @@
             <tr>
                 <th scope="row">2</th>
                 <td scope="row" style="background-color:orange;"></td>
-                <td>Դեղինը խոտակերն է</td>
+                <td>Դեղինը խոտակերն է, Ձմռանը արագ է սովածանում, Գարնանը բազմանում է եթե իր կողքին կա ուրիշ խոտակեր, ամռանն ու աշնանը մահանալուց 25% հավանակնությամբ ձու է դնում հողի մեջ, ո8ը գարնանը դուրս է գալիս եթե իր վանդակում խոտ է կամ ոչինչ</td>
                 <td id="grassEaterCount"></td>
             </tr>
             <tr>
                 <th scope="row">3</th>
                 <td scope="row" style="background-color:red;"></td>
-                <td>Կարմիրը Մսակերն է</td>
+                <td>Կարմիրը Մսակերն է, գարնանը բազմանում է 2 հոգով,Ամռանը արագ է սովածանում, Ձմռանը արագ է ծերանում:</td>
                 <td id="meatEaterCount"></td>
             </tr>
             <tr>
                 <th scope="row">4</th>
                 <td scope="row" style="background-color:blue;"></td>
-                <td>Կապույտը մարդն է</td>
+                <td>Կապույտը մարդն է, գարնանը բազմանում են 2 հոգով, ամռանը ուտում է խոտ, մնացած ժամանակները խոտակեր կամ մսակեր: Ձմռանը չի շարժվում եթե ուտելու բան չկա:</td>
                 <td id="manCount"></td>
             </tr>
             <tr>
                 <th scope="row">5</th>
                 <td scope="row" style="background-color:yellow;"></td>
-                <td>Դեղինը զոմբին է</td>
+                <td>Դեղինը զոմբին է, մահանում է միայն եթե իր կողքը կան 5-ից պակաս ազատ վանդակ: Ուզում է իր կողքի մարդկանց դարձնել զոմբի: Ձմռանը ոչինչ չի անում, Ամռանը չի շարժվում, Անանը մարդկանց չի դիպչում</td>
                 <td id="zombieCount"></td>
             </tr>
         </tbody>
     </table>
+    <p style="color: red">Խաղը սկսելու համար սեղմեք start/pause/resume կոճակը, խաղադաշտին սեղմելու դեպքւմ մտակա 9 վանդակներից ազաներում կհայտնվեն տարբեր կենդանակերպեր:</p>
+    <p style="color: red">Հ.Գ. եթե նկատեք որ ստատիստիկան անիմաստ ավելանում է, դա իրականում ուղղակի նրանից է որ մի տեղ մահանում է մի բան և նույն տեղը ծնվում նույն բանից, դրա համար թվում է որ խաղում բան չի փոխվել, բայց իրականում ավելանում է նոր էակ:</p>
     <p id="p1"></p>
     <input id="Button1" type="button" value="Գարուն" onclick="ChangeWeather(1);" />
     <input id="Button2" type="button" value="Ամառ" onclick="ChangeWeather(2);" />
     <input id="Button3" type="button" value="Աշուն" onclick="ChangeWeather(3);" />
     <input id="Button4" type="button" value="Ձմեռ" onclick="ChangeWeather(4);" />
+    <input id="start-pause" type="button" value="start/pause/resume" onclick="start_pause();" />
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>

@@ -22,6 +22,7 @@ needToAdd = [];
 MeatEaterHashiv=0;
 GrassEaterHashiv=0;
 GrassHashiv=0;
+pause=true;
 ZombieHashiv=0;
 ManHashiv=0;
 change=-1;
@@ -130,11 +131,18 @@ function UserClicked(data){
     let curx=data.x,cury=data.y;
     needToAdd.push([curx,cury]);  
 }
+
+function pauseContinue(){
+    pause=!pause;
+}
+
 io.on("connection",function(socket){
     socket.on("clicked",UserClicked);
     socket.on("weather",WeatherChange);
+    socket.on("stop",pauseContinue);
 });
 function game() {
+    if (pause)return;
     ExCounter++;
     ExCounter%=12;
     if (change!=-1){

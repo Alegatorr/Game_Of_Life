@@ -81,3 +81,6 @@ function mousePressed() {
 function ChangeWeather(Exanak){
     socket.emit("weather",Exanak);
 }
+function start_pause(){
+    socket.emit("stop",1);
+}
