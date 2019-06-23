@@ -113,7 +113,6 @@ function addRandomObj(curx,cury){
 }
 
 function addHere(curx,cury){
-    //console.log(curx,cury);
     if (cury<0 || curx<0 || curx>=SIZE || cury>=SIZE)return;
     if (matrix[cury][curx]==0){
         addRandomObj(curx,cury);
@@ -207,7 +206,6 @@ function game() {
         zombieCounter: ZombieHashiv,
         Exan:Exanak
     }
-    //console.log(grassArr);
     //! Send data over the socket to clients who listens "data"
     io.sockets.emit("data", sendData);
 }

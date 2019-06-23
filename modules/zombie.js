@@ -24,7 +24,6 @@ module.exports = class Zombie extends LiveForm {
         if (Exanak!=4){
             let ManCell = random(this.chooseCell(4));
             if (ManCell && Exanak!=3) {
-                //console.log(1);
                 super.GetObject(ManCell).die();
                 new Zombie(ManCell[0],ManCell[1]);
             }

@@ -69,7 +69,6 @@ function setup() {
 }
 
 function mousePressed() {
-    console.log(mouseX, mouseY);
     let curx=Math.floor(mouseX/side),cury=Math.floor(mouseY/side);
     let Cordinates = {
         x:curx,

@@ -44,7 +44,6 @@ module.exports = class LiveForm {
         let x=Cell[0];
         let y=Cell[1];
         if (ObjMatrix[y][x]){
-            //if (matrix[y][x]==1)console.log("vay");
             ObjMatrix[y][x].die();
         }
         ObjMatrix[y][x]=this;
